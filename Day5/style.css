@@ -1,0 +1,36 @@
+.link {
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    background-size: 120% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    -ms-background-clip: text;
+    -ms-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    transition: all 0.15s cubic-bezier(0.68, -0.25, 0.265, 1.25);
+    background-image: linear-gradient(45deg, #FD8BA9, #9A94E8, #2EDBF8, #F5F1C8, #FD8BA9);
+}
+
+.link3 {
+    background-image: linear-gradient(45deg, #F2C94C, #FF2687);
+}
+
+.link3.link:hover {
+	background-image: linear-gradient(45deg, #F2C94C, #FF2687) !important;
+}
+
+a {
+    background-color: transparent;
+}
+
+a {
+    outline: 0px;
+}
+
+p {
+	color: #008
+}

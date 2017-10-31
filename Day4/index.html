@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="banner">
+  Type or click to play
+</div>
+
+<div class="keys">
+	<div data-key="65" class="key">
+		<kbd>A</kbd>
+		<span class="sound">clap</span>
+	</div>
+	<div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">hihat</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">kick</span>
+    </div>
+    <div id="F key" data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">openhat</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">boom</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">ride</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">snare</span>
+    </div>
+    <div data-key="75" class="key keyK">
+      <kbd>K</kbd>
+      <span class="sound">tom</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">tink</span>
+    </div>
+</div>
+
+
+ <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
+  <audio data-key="68" src="sounds/kick.wav"></audio>
+  <audio data-key="70" src="sounds/openhat.wav"></audio>
+  <audio data-key="71" src="sounds/boom.wav"></audio>
+  <audio data-key="72" src="sounds/ride.wav"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="75" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+
+Photo from <a href="https://unsplash.com/photos/NcdG9mK3PBY">Unsplash</a>
+
+<script>
+
+//get all the divs with class key. 
+const keys = Array.from(document.querySelectorAll('.key'));
+
+//add event listeners click to each of them. 
+keys.forEach(key => key.addEventListener('click', playSound));
+
+//add event listeners for transition end, so we can remove the played class
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+//add global listener for any keydown events to play with keyboard
+window.addEventListener('keydown', playSound);
+
+function playSound(e) {
+	var dataKey = null;
+
+	//check if it is window. If window get dataKey from keydown event keyCode.
+	if(this == window) {
+		dataKey = e.keyCode;
+	} else {
+    	//if not window, it was a click. Get dataKey from clicked element
+    	dataKey = this.getAttribute('data-key');
+	}
+	const audio = document.querySelector(`audio[data-key="${dataKey}"]`)
+	
+	//if I were to improve this, I would make a function to get the key element. Then I would call the play sound. So instead of getting the element again, you could just assign it directly. This this:
+	//const key = this;
+
+	const key = document.querySelector(`.key[data-key="${dataKey}"]`)
+
+	if (!audio) return; //stop the function if no audio mapped to that key. 
+	audio.currentTime = 0; //rewind to start of sound, so you can trigger it multiple ties
+	audio.play();
+	key.classList.add('playing');
+
+	//this works too but it is not the new template literal
+    //var audioKeySelector = 'audio[data-key="' + dataKey + '"]';
+    
+    //this is the new template literal. Nice. 
+    //var templateLiteralAudioKeySelector = `audio[data-key="${dataKey}"]`;
+} //end playSound
+
+function removeTransition(e) {
+	if (e.propertyName !== 'transform') return; //skip it if it's not a transform
+	this.classList.remove('playing');
+	console.log(e);
+} //end removeTransition
+
+</script>
+
+</body>
+</html>
