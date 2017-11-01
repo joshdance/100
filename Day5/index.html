@@ -1,19 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Hawaii Rainbow</title>
+	<title>Pretty Links</title>
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-	<a href="joshdance.me" class="link link3">Joshua</a>
+<div>
+	<div class="headerRow">Pretty Links</div>
 
-	<p class="link">
-		Color this
-	</p>
+	<div>
+		<a href="http://joshdance.me" class="link link3">Joshua</a>
+	</div>
 
-I want to make the link be the same color as the links in the footer. https://superteamdeluxe.com/
+	<div>
+		<a href="http://twitter.com/joshdance" class="link">Twitter</a>
+	</div>
+
+	<div class="notPretty">
+		<a href="http://bit.ly/JoshDanceYouTube" class="normalLink">YouTube</a>
+		<button class="prettyButton">Make Me Pretty</button>
+		<button class="prettyLinkButton">Make Link Pretty</button>
+	</div>
+
+	<div>
+		<button class="prettierButton">Make Everything Prettier</button>
+	</div>
+
+	<div>
+		<img src="parrot.gif" id="partyParrot">
+	</div>
+
+</div>
+
+Inspired by <a href="https://superteamdeluxe.com/pages/about" class="link">SuperTeamDeluxe</a>
 
 </body>
+
+<script type="text/javascript">
+
+var image = document.getElementById('partyParrot');
+image.style.visibility = 'hidden';
+
+	
+const button = document.getElementsByClassName("prettyButton")[0];
+
+button.addEventListener ("click", makePretty);
+
+const prettyLinkButton = document.getElementsByClassName("prettyLinkButton")[0];
+prettyLinkButton.addEventListener ("click", makeLinkPretty);
+
+
+const prettierButton = document.getElementsByClassName("prettierButton")[0];
+prettierButton.addEventListener ("click", makePrettier);
+
+
+
+function makePretty (e) {
+  this.classList.add('link');
+}
+
+function makeLinkPretty (e) {
+	const link = document.getElementsByClassName("normalLink")[0];
+	link.classList.add('link');
+}
+
+function makePrettier (e) {
+	showImage();
+	const allItems = Array.from(document.querySelectorAll("a, button"));
+
+	allItems.forEach(item => item.classList.add('link','link3'));
+}
+
+function showImage() {
+    var image = document.getElementById('partyParrot');
+    image.style.visibility = 'visible';
+}
+
+</script>
+
 </html>
 
